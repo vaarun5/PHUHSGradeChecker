@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
 }, false);
 
 function calculateAverage() {
-    var grade = "Hello";
+    var grade = "Hi";
     var row = 1;
     setTimeout(() => console.log(document.querySelector("#LOy_row1 > td:nth-child(2)").innerHTML), 1000);
     return grade;
