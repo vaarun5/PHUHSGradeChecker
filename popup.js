@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
 function calculateAverage() {
     var grade = "Hi";
     var row = 1;
-    setTimeout(() => console.log(document.querySelector("#LOy_row1 > td:nth-child(2)").innerHTML), 1000);
+    //setTimeout(() => grade = document.querySelector("#LOy_row1 > td:nth-child(2)").innerHTML, 1000);
+    grade =  String(document.getElementsByClassName("lo_export_csv")[0].getAttribute("href"));
     return grade;
 }
