@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "Portal Grade Editor",
+    "description": "Calcualte theoretical grades in Portal",
+    "version": "1.0.0",
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "Portal Grade Calc"
+    },
+    "content_scripts": [
+        {
+        "matches":[
+            "<all_urls>"
+        ],
+        "js": ["popup.js"]
+    }
+    ],
+    "permissions": ["activeTab"]
+}
