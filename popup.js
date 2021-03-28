@@ -15,13 +15,16 @@ function calculateAverage() {
     return grade;
 }
 
+allGrades = [];
 
 function fetchGrade() {
     chrome.tabs.executeScript(
       {
         file: "/fetchGrades.js"
-      }
+      },
+      results => {document.getElementById("totalGrades").innerHTML = results}
     );
   }
   
+
   document.getElementById("clickme").addEventListener("click", fetchGrade);
