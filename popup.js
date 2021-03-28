@@ -66,34 +66,5 @@ function calculateAverage() {
   alert(100 * (numerator/denominator) + "%");
 }
 
-/*function calculateAverage() {
-  chrome.tabs.executeScript(
-    {
-      file: "/fetchGrades.js",
-    },
-    (results) => {
-      arrayGrades = results[0];
-      let sum = 0;
-      let numerator = 0;
-      let denominator = 0;
-      let split = [];
-      let earnedPoints = [];
-      let possiblePoints = [];
-
-      for (i = 0; i < arrayGrades.length; i++) {
-        fraction = arrayGrades[i].grades;
-        split[i] = fraction.split("/");
-        earnedPoints[i] = parseFloat(split[i][0]);
-        possiblePoints[i] = parseFloat(split[i][1]);
-      }
-      for (i = 0; i < earnedPoints.length; i++) {
-        numerator = numerator + earnedPoints[i];
-        denominator = denominator + possiblePoints[i];
-      }
-      alert((100 * numerator) / denominator + "%");
-    }
-  );
-};*/
-
 document.getElementById("clickme").addEventListener("click", fetchGrade);
 document.getElementById("average").addEventListener("click", calculateAverage);
