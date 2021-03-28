@@ -14,3 +14,17 @@ function calculateAverage() {
     grade =  String(document.getElementsByClassName("lo_export_csv")[0].getAttribute("href"));
     return grade;
 }
+
+allGrades = [];
+
+function fetchGrade() {
+    chrome.tabs.executeScript(
+      {
+        file: "/fetchGrades.js"
+      },
+      results => {document.getElementById("totalGrades").innerHTML = results}
+    );
+  }
+  
+
+  document.getElementById("clickme").addEventListener("click", fetchGrade);
