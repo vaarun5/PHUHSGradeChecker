@@ -31,7 +31,7 @@ function createGradeEntries(itemsArray) {
   let test = [];
   for (i = 0; i < itemsArray.length; i++) {
     test[i] = document.createTextNode(
-      `Assignment: ${itemsArray[0].name}: ${itemsArray[0].grades} : ${itemsArray[0].type}`
+      `Assignment: ${itemsArray[i].name}: ${itemsArray[i].grades} : ${itemsArray[i].type}`
     );
   }
   return test; 
