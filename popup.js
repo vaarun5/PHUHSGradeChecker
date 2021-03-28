@@ -1,31 +1,4 @@
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    var checkPageButton = document.getElementById("average");
-    checkPageButton.addEventListener(
-      "click",
-      function () {
-        chrome.tabs.getSelected(null, function (tab) {
-          alert(calculateAverage());
-        });
-      },
-      false
-    );
-  },
-  false
-);
-
-function calculateAverage() {
-  var grade = "Hi";
-  var row = 1;
-  //setTimeout(() => grade = document.querySelector("#LOy_row1 > td:nth-child(2)").innerHTML, 1000);
-  grade = String(
-    document.getElementsByClassName("lo_export_csv")[0].getAttribute("href")
-  );
-  return grade;
-}
-
-allGrades = [];
+gradeObject = [];
 
 function createGradeEntries(itemsArray) {
   let test = [];
@@ -34,7 +7,7 @@ function createGradeEntries(itemsArray) {
       `Assignment: ${itemsArray[i].name}: ${itemsArray[i].grades} : ${itemsArray[i].type}`
     );
   }
-  return test; 
+  return test;
 }
 
 function fetchGrade() {
@@ -48,11 +21,42 @@ function fetchGrade() {
       const newContent = createGradeEntries(objArray);
       for (i = 0; i < objArray.length; i++) {
         newDiv.appendChild(newContent[i]);
-      } 
-      document.body.insertAdjacentElement("afterend", newDiv);
-      console.log(results[0][0]);
+        newDiv.appendChild(document.createElement("br"));
+      }
+      document.getElementById("assignmentSection").innerHTML = "";
+      document.getElementById("assignmentSection").appendChild(newDiv);
     }
   );
 }
 
+function calculateAverage() {
+  chrome.tabs.executeScript(
+    {
+      file: "/fetchGrades.js",
+    },
+    (results) => {
+      arrayGrades = results[0];
+      let sum = 0;
+      let numerator = 0;
+      let denominator = 0;
+      let split = [];
+      let earnedPoints = [];
+      let possiblePoints = [];
+
+      for (i = 0; i < arrayGrades.length; i++) {
+        fraction = arrayGrades[i].grades;
+        split[i] = fraction.split("/");
+        earnedPoints[i] = parseInt(split[i][0]);
+        possiblePoints[i] = parseInt(split[i][1]);
+      }
+      for (i = 0; i < earnedPoints.length; i++) {
+        numerator = numerator + earnedPoints[i];
+        denominator = denominator + possiblePoints[i];
+      }
+      alert((100 * numerator) / denominator + "%");
+    }
+  );
+};
+
 document.getElementById("clickme").addEventListener("click", fetchGrade);
+document.getElementById("average").addEventListener("click", calculateAverage);
