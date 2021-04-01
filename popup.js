@@ -1,12 +1,37 @@
 gradeObject = [];
 
+var future = 1;
+var tFuture = [];
+
+function createFutureGrade(){
+  tFuture[future] = document.createElement("div");
+  let x = document.createElement("input");
+  x.setAttribute("value", "hello");
+  test = document.createTextNode(
+      `Theoretical Assignment ${future}\n`
+  );
+  inputs = document.createElement("input");
+  inputs.setAttribute("value", "0 / 0");
+  inputs.id = "gradeInput-" + i;
+  tFuture[future].appendChild(test);
+  tFuture[future].appendChild(inputs);
+  tFuture[future].appendChild(document.createElement("br"));
+  document.getElementById("assignmentSection").appendChild(tFuture[future]);
+  future++;
+}
+
+function removeFuture(){
+  document.getElementById("assignmentSection").removeChild(tFuture[tFuture.length-1]);
+  tFuture.pop();
+  future--;
+}
 function createGradeEntries(itemsArray) {
   let test = [];
   let x = document.createElement("input");
   x.setAttribute("value", "hello");
   for (i = 0; i < itemsArray.length; i++) {
     test[i] = document.createTextNode(
-      `Assignment: ${itemsArray[i].name}: ${itemsArray[i].type}`
+      `Assignment: ${itemsArray[i].name} (${itemsArray[i].type})\n`
     );
   }
   return test;
@@ -38,6 +63,8 @@ function fetchGrade() {
       document.getElementById("assignmentSection").appendChild(newDiv);
     }
   );
+  future = 1;
+  var tFuture = [];
 }
 
 function calculateAverage() {
@@ -56,8 +83,15 @@ function calculateAverage() {
   for (i=0; i<gradeInputs.length; i++) {
     fraction = gradeInputs[i];
     split[i] = fraction.split('/');
-    earnedPoints[i] = parseFloat(split[i][0]);
-    possiblePoints[i] = parseFloat(split[i][1]);
+    if (split[i][0] != "NG "){
+      earnedPoints[i] = parseFloat(split[i][0]);
+      console.log(split[i][0])
+      possiblePoints[i] = parseFloat(split[i][1]);
+    }
+    else{
+      earnedPoints[i] = 0;
+      possiblePoints[i] = 0;
+    }
   }
   for (i = 0; i < earnedPoints.length; i++) {
     numerator = numerator + earnedPoints[i];
@@ -68,3 +102,5 @@ function calculateAverage() {
 
 document.getElementById("clickme").addEventListener("click", fetchGrade);
 document.getElementById("average").addEventListener("click", calculateAverage);
+document.getElementById("future").addEventListener("click", createFutureGrade);
+document.getElementById("remove").addEventListener("click", removeFuture);
