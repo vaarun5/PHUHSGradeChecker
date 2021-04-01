@@ -72,7 +72,7 @@ function testWeighting() {
   chrome.tabs.executeScript(
     {
       file: '/fetchWeighting.js'
-    }, (e) => {console.log(e)}
+    }, (results) => {z = results[0]; alert(z[0].category + z[0].weight + '/' + z[1].category + z[1].weight); console.log(results)}
   )
 }
 
