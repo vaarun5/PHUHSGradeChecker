@@ -44,6 +44,7 @@ function fetchGrade() {
     },
     (results) => {
       let objArray = results[0];
+      console.log(objArray);
       const newDiv = document.createElement("div");
       const newContent = createGradeEntries(objArray);
       let inputs = [];
@@ -67,6 +68,16 @@ function fetchGrade() {
   var tFuture = [];
 }
 
+function testWeighting() {
+  chrome.tabs.executeScript(
+    {
+      file: '/fetchWeighting.js'
+    }, (results) => {z = results[0]; alert(z[0].category + z[0].weight + '/' + z[1].category + z[1].weight); console.log(results)}
+  )
+}
+
+
+
 function calculateAverage() {
   len = document.querySelectorAll("input");
   gradeInputs = [];
@@ -85,7 +96,6 @@ function calculateAverage() {
     split[i] = fraction.split('/');
     if (split[i][0] != "NG "){
       earnedPoints[i] = parseFloat(split[i][0]);
-      console.log(split[i][0])
       possiblePoints[i] = parseFloat(split[i][1]);
     }
     else{
@@ -102,5 +112,6 @@ function calculateAverage() {
 
 document.getElementById("clickme").addEventListener("click", fetchGrade);
 document.getElementById("average").addEventListener("click", calculateAverage);
+document.getElementById("weighting").addEventListener("click", testWeighting);
 document.getElementById("future").addEventListener("click", createFutureGrade);
 document.getElementById("remove").addEventListener("click", removeFuture);

@@ -37,7 +37,6 @@ function createGradesObject() {
       type: category[i],
     };
   }
-
   return arr;
 }
 
